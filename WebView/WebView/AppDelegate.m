@@ -6,6 +6,7 @@
 
 #import "AppDelegate.h"
 #import "WebViewController.h"
+#import "WebViewController2.h"
 
 @interface AppDelegate ()
 
@@ -16,8 +17,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc]init];
+    
+    UINavigationController *webVC1 = [[UINavigationController alloc]initWithRootViewController:[WebViewController new]];
+    webVC1.tabBarItem.title = @"示例1";
+    
+    UINavigationController *webVC2 = [[UINavigationController alloc]initWithRootViewController:[WebViewController2 new]];
+    webVC2.tabBarItem.title = @"示例2";
+    
+    [tabBarController addChildViewController:webVC1];
+    [tabBarController addChildViewController:webVC2];
+    
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen] .bounds];
-    self.window.rootViewController = [[WebViewController alloc] init];
+    self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
 
     return YES;

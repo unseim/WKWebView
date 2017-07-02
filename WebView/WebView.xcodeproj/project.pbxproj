@@ -15,6 +15,8 @@
 		9D0E5BC31EC8545E00FD17C1 /* WebTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E5BC01EC8545E00FD17C1 /* WebTableViewCell.m */; };
 		9D0E5BC41EC8545E00FD17C1 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E5BC21EC8545E00FD17C1 /* WebViewController.m */; };
 		9D0E5C171EC859D500FD17C1 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 9D0E5C161EC859D500FD17C1 /* PodFile */; };
+		9D3907D41F08CB490050AE60 /* WebViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3907D31F08CB490050AE60 /* WebViewController2.m */; };
+		9D3907D71F08CB670050AE60 /* WebViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3907D61F08CB670050AE60 /* WebViewHeaderView.m */; };
 		D6908460FDCD21F3B7839888 /* libPods-WebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F80CB8EEE5542DA60F8372F /* libPods-WebView.a */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,10 @@
 		9D0E5BC21EC8545E00FD17C1 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		9D0E5C131EC8587D00FD17C1 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9D0E5C161EC859D500FD17C1 /* PodFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodFile; sourceTree = "<group>"; };
+		9D3907D21F08CB490050AE60 /* WebViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController2.h; sourceTree = "<group>"; };
+		9D3907D31F08CB490050AE60 /* WebViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController2.m; sourceTree = "<group>"; };
+		9D3907D51F08CB670050AE60 /* WebViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewHeaderView.h; sourceTree = "<group>"; };
+		9D3907D61F08CB670050AE60 /* WebViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +96,8 @@
 			children = (
 				9D0E5BAB1EC8540900FD17C1 /* AppDelegate.h */,
 				9D0E5BAC1EC8540900FD17C1 /* AppDelegate.m */,
-				9D0E5BBF1EC8545E00FD17C1 /* WebTableViewCell.h */,
-				9D0E5BC01EC8545E00FD17C1 /* WebTableViewCell.m */,
-				9D0E5BC11EC8545E00FD17C1 /* WebViewController.h */,
-				9D0E5BC21EC8545E00FD17C1 /* WebViewController.m */,
+				9D3907DB1F08D36D0050AE60 /* WKWebView作为cell */,
+				9D3907DC1F08D37C0050AE60 /* WKWebView作为headerView */,
 				9D0E5BA81EC8540900FD17C1 /* Supporting Files */,
 			);
 			path = WebView;
@@ -111,6 +115,28 @@
 				9D0E5BA91EC8540900FD17C1 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9D3907DB1F08D36D0050AE60 /* WKWebView作为cell */ = {
+			isa = PBXGroup;
+			children = (
+				9D0E5BC11EC8545E00FD17C1 /* WebViewController.h */,
+				9D0E5BC21EC8545E00FD17C1 /* WebViewController.m */,
+				9D0E5BBF1EC8545E00FD17C1 /* WebTableViewCell.h */,
+				9D0E5BC01EC8545E00FD17C1 /* WebTableViewCell.m */,
+			);
+			name = "WKWebView作为cell";
+			sourceTree = "<group>";
+		};
+		9D3907DC1F08D37C0050AE60 /* WKWebView作为headerView */ = {
+			isa = PBXGroup;
+			children = (
+				9D3907D21F08CB490050AE60 /* WebViewController2.h */,
+				9D3907D31F08CB490050AE60 /* WebViewController2.m */,
+				9D3907D51F08CB670050AE60 /* WebViewHeaderView.h */,
+				9D3907D61F08CB670050AE60 /* WebViewHeaderView.m */,
+			);
+			name = "WKWebView作为headerView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,7 +264,9 @@
 				9D0E5BC41EC8545E00FD17C1 /* WebViewController.m in Sources */,
 				9D0E5BAD1EC8540900FD17C1 /* AppDelegate.m in Sources */,
 				9D0E5BC31EC8545E00FD17C1 /* WebTableViewCell.m in Sources */,
+				9D3907D71F08CB670050AE60 /* WebViewHeaderView.m in Sources */,
 				9D0E5BAA1EC8540900FD17C1 /* main.m in Sources */,
+				9D3907D41F08CB490050AE60 /* WebViewController2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

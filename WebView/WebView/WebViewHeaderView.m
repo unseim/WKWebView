@@ -5,30 +5,21 @@
 //
 
 #import <WebKit/WebKit.h>
-#import "WebTableViewCell.h"
+#import "WebViewHeaderView.h"
 
-@interface WebTableViewCell () <WKUIDelegate,WKNavigationDelegate>
+@interface WebViewHeaderView () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic, strong) WKUserScript *userScript;
 @property (nonatomic, strong) WKWebView *webView;
 
 @property (nonatomic, strong) UIProgressView *progressView; // 进度条
 @end
 
-@implementation WebTableViewCell
+@implementation WebViewHeaderView
 {
     CGFloat webContentHeight;
 }
 
-//  初始化
-+ (instancetype)initWithTableView:(UITableView *)tableView
-{
-    static NSString *const webCellIdentifier = @"webCell";
-    WebTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:webCellIdentifier];
-    if (!cell) {
-        cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:webCellIdentifier];
-    }
-    return cell;
-}
+
 
 //  加载网页
 - (void)loadURL:(NSString *)html
@@ -88,7 +79,7 @@
     //开始加载网页的时候将progressView的Height恢复为1.5倍
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     //防止progressView被网页挡住
-    [self.contentView bringSubviewToFront:self.progressView];
+    [self bringSubviewToFront:self.progressView];
 }
 
 
@@ -149,7 +140,7 @@
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
         _webView.scrollView.showsVerticalScrollIndicator = NO;
-        [self.contentView addSubview:_webView];
+        [self addSubview:_webView];
         // 使用kvo为webView添加监听，监听webView的内容高度
         [_webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
         // 使用kvo为webView添加监听,监听webView的加载进度
@@ -198,23 +189,12 @@
         _progressView.backgroundColor = [UIColor clearColor];
         //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的1.5倍.
         _progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
-        [self.contentView addSubview:_progressView];
+        [self addSubview:_progressView];
     }
     return _progressView;
 }
 
 
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 
 
