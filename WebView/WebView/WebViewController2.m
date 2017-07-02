@@ -4,25 +4,36 @@
 //  QQ：9137279
 //
 
-#import "WebViewController.h"
-#import "WebTableViewCell.h"
+#import "WebViewController2.h"
+#import "WebViewHeaderView.h"
 
-@interface WebViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface WebViewController2 () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) CGFloat webHeight;
 @end
 
-static NSString *const cellIdentifier = @"cell";
-@implementation WebViewController
+static NSString *const cellIdentifier = @"webcell";
+@implementation WebViewController2
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
     [self tableView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -32,32 +43,6 @@ static NSString *const cellIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        WebTableViewCell *cell = [WebTableViewCell initWithTableView:tableView];
-        [cell loadURL:@"http://www.1foli.com/news/getMobileNewsDetail/1489"];
-        
-        //  计算网页高度 刷新cell
-        __weak typeof(self) weakSelf = self;
-        [cell setWebViewHeightHandler:^(CGFloat height) {
-            NSLog(@"WebHeight  =  %lg", height);
-            [weakSelf.tableView reloadData];
-        }];
-        
-        //  获取网页图片数组
-        [cell setWebViewimageArrayHandler:^(NSArray *images) {
-            NSLog(@"图片数组 = %@", images);
-            
-        }];
-        
-        //  获取点击的图片链接
-        [cell setWebViewimageURLHandler:^(NSString *url) {
-            NSLog(@"imageURL = %@", url);
-            
-        }];
-        
-        return cell;
-    }
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -75,10 +60,51 @@ static NSString *const cellIdentifier = @"cell";
     cell.separatorInset = UIEdgeInsetsZero;
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    WebViewHeaderView *headerView = [WebViewHeaderView new];
+    [headerView loadURL:@"http://www.1foli.com/news/getMobileNewsDetail/1489"];
+    //  计算网页高度 刷新headerView
+    __weak typeof(self) weakSelf = self;
+    [headerView setWebViewHeightHandler:^(CGFloat height) {
+        NSLog(@"WebHeight  =  %lg", height);
+        
+        weakSelf.webHeight = height;    //  让网页高度等于组头高度
+        [weakSelf.tableView beginUpdates];  //  更新约束
+        [weakSelf.tableView endUpdates];
+    }];
+    
+    //  获取网页图片数组
+    [headerView setWebViewimageArrayHandler:^(NSArray *images) {
+        NSLog(@"图片数组 = %@", images);
+        
+    }];
+    
+    //  获取点击的图片链接
+    [headerView setWebViewimageURLHandler:^(NSString *url) {
+        NSLog(@"imageURL = %@", url);
+        
+    }];
+    
+    return headerView;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return self.webHeight + 0.01;  //让组头的高度等于webView的高度
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if(_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectNull style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectNull style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
@@ -91,5 +117,6 @@ static NSString *const cellIdentifier = @"cell";
     }
     return _tableView;
 }
+
 
 @end
