@@ -101,6 +101,12 @@ static NSString *const cellIdentifier = @"webcell";
     return 0.01;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
+}
+
+
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if(_tableView == nil) {
